@@ -1,6 +1,44 @@
 {
   "version": 1,
-  "projects": {},
+  "projects": {
+    "analyzer": {
+      "root": "libs/analyzer",
+      "sourceRoot": "libs/analyzer/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/analyzer/tsconfig.lib.json",
+              "libs/analyzer/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/analyzer/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/analyzer/jest.config.js",
+            "tsConfig": "libs/analyzer/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/analyzer",
+            "tsConfig": "libs/analyzer/tsconfig.lib.json",
+            "packageJson": "libs/analyzer/package.json",
+            "main": "libs/analyzer/src/index.ts",
+            "assets": ["libs/analyzer/*.md"]
+          }
+        }
+      }
+    }
+  },
   "cli": {
     "defaultCollection": "@nrwl/workspace"
   },
